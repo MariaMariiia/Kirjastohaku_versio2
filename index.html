@@ -5,61 +5,47 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-public class MainGET {
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+<script>
 
-    public static void main(String[] args) {
-        try {
+$(function() {
 
-            URL url = new URL("https://api.finna.fi/v1/search?lookfor=&filter[]=~format:%220/Book/%22");
+var dmJSON = "https://api.finna.fi/v1/search?lookfor=lng=fin&-lng=eng&filter[]=~format:%220/Book/%22&limit=10";
+$.getJSON( dmJSON, function(data) {
+   $.each(data.entries, function(i, f) {
+      var tblRow = "<tr>" + "<td>" + f.records.subjects + "</td>" + "<td>" + f.title + "</td>" + "<td>" + f.formats.translated + "</td>" + "</tr>"
+       $(tblRow).appendTo("#entrydata tbody");
+ });
 
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.connect();
+});
 
-            //Getting the response code
-            int responsecode = conn.getResponseCode();
+});
+</script>
+</head>
 
-            if (responsecode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responsecode);
-            } else {
+<body>
 
-                String inline = "";
-                Scanner scanner = new Scanner(url.openStream());
+<div class="wrapper">
+<div class="profile">
+<table id= "entrydata" border="1">
+<thead>
+        <th>Aiheet/Subjects</th>
+        <th>Otsikko/Title</th>
+        <th></th>
+    <!--<th>Location</th>
+        <th>Time</th> -->
+    </thead>
+  <tbody>
 
-                //Write all the JSON data into a string using a scanner
-                while (scanner.hasNext()) {
-                    inline += scanner.nextLine();
-                }
+   </tbody>
+</table>
 
-                //Close the scanner
-                scanner.close();
+</div>
+</div>
 
-                //Using the JSON simple library parse the string into a json object
-                JSONParser parse = new JSONParser();
-                JSONObject data_obj = (JSONObject) parse.parse(inline);
+</body>
 
-                //Get the required object from the above created object
-                JSONObject obj = (JSONObject) data_obj.get("formats");
+</html>
 
-                //Get the required data using its key
-                System.out.println(obj.get("value"));
-
-                JSONArray arr = (JSONArray) data_obj.get("title");
-
-                for (int i = 0; i < arr.size(); i++) {
-
-                    JSONObject new_obj = (JSONObject) arr.get(i);
-
-                    if (new_obj.get("value").equals("0/Book/%22")) {
-                        System.out.println("Kirjan nimi: " + new_obj.get("title"));
-                        break;
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-}
