@@ -1,51 +1,18 @@
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<html>
-<head>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
-<script>
+    <title>Ghibli App</title>
 
-$(function() {
+    <link href="https://fonts.googleapis.com/css?family=Dosis:400,700" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
+  </head>
 
-var dmJSON = "https://api.finna.fi/v1/search?lookfor=lng=fin&-lng=eng&filter[]=~format:%220/Book/%22&limit=10";
-$.getJSON( dmJSON, function(data) {
-   $.each(data.entries, function(i, f) {
-      var tblRow = "<tr>" + "<td>" + f.records.subjects + "</td>" + "<td>" + f.title + "</td>" + "<td>" + f.formats.translated + "</td>" + "</tr>"
-       $(tblRow).appendTo("#entrydata tbody");
- });
-
-});
-
-});
-</script>
-</head>
-
-<body>
-
-<div class="wrapper">
-<div class="profile">
-<table id= "entrydata" border="1">
-<thead>
-        <th>Aiheet/Subjects</th>
-        <th>Otsikko/Title</th>
-        <th></th>
-    <!--<th>Location</th>
-        <th>Time</th> -->
-    </thead>
-  <tbody>
-
-   </tbody>
-</table>
-
-</div>
-</div>
-
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script src="scripts.js"></script>
+  </body>
 </html>
 
