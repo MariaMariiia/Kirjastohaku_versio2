@@ -17,11 +17,11 @@
  
 <script>
 (function() {
-  var flickerAPI = "https://api.finna.fi/v1/search?lookfor&filter[]=~format:"0/Book/"&limit=20";
-  $.getJSON( finnaAPI, {
-    languages: "fin",
-    format: "json",
-    value: "0/Book/"
+  var flickerAPI = "https://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?";
+  $.getJSON( flickerAPI, {
+    tags: "mount rainier",
+    tagmode: "any",
+    format: "json"
   })
     .done(function( data ) {
       $.each( data.items, function( i, item ) {
@@ -33,6 +33,9 @@
     });
 })();
 </script>
+ 
+</body>
+</html>
  
 </body>
 </html>
