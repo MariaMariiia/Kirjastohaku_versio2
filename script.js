@@ -1,6 +1,7 @@
 // api url
 const api_url = 
-      "https://api.finna.fi/v1/search?lookfor=sibelius&limit=10";
+      "https://api.finna.fi/v1/search?lookfor&filter[]=~format:"0/Book/"&limit=10";
+
   
 // Defining async function
 async function getapi(url) {
