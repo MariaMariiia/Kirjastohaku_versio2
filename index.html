@@ -16,16 +16,18 @@
 <!-- <div id="images"></div> -->
  
 <script>
-$.ajax({
-    type: "Get",
-    url: 'https://api.finna.fi/v1/search?lookfor=sibelius&limit=3',
-    data: {app_id:c8e005009e5946f58356aa9a5fa7f5dd}
-    success:function(data){
-            //do something like this
-            var tbody_str="";
-            $(data.rates).each(function(key,value){
-               tbody_str = tbody_str + "<tr><td> data.key</td><td>data.value</td></tr>
-   });
+$.ajax({ 
+    type: 'GET', 
+    url: 'https://api.finna.fi/v1/search?lookfor=sibelius&limit=3', 
+    data: { get_param: 'value' }, 
+    dataType: 'json',
+    success: function (data) { 
+        $.each(data, function(index, element) {
+            $('body').append($('<div>', {
+                text: element.title
+            }));
+        });
+    }
 });
 </script>
  
