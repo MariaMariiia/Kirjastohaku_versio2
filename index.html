@@ -13,25 +13,20 @@
 </head>
 <body>
  
-<div id="images"></div>
+<!-- <div id="images"></div> -->
  
 <script>
-(function() {
-  var flickerAPI = "https://api.finna.fi/v1/<get>?callback=process";
-  $.getJSON( finnaAPI, {
-    lng: "fi",
-    prettyPrint: "true",
-    format: "json"
-  })
-    .done(function( data ) {
-      $.each( data.items, function( i, item ) {
-        $( "<img>" ).attr( "src", item.media.m ).appendTo( "#images" );
-        if ( i === 3 ) {
-          return false;
-        }
-      });
-    });
-})();
+$.ajax({
+    type: "Get",
+    url: 'https://api.finna.fi/v1/search?lookfor=sibelius&limit=3',
+    data: {app_id:c8e005009e5946f58356aa9a5fa7f5dd}
+    success:function(data){
+            //do something like this
+            var tbody_str="";
+            $(data.rates).each(function(key,value){
+               tbody_str = tbody_str + "<tr><td> data.key</td><td>data.value</td></tr>
+   });
+});
 </script>
  
 </body>
