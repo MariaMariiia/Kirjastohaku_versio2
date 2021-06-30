@@ -80,7 +80,7 @@ $(document).ready(function() {
 const $output = $("#output");
   $("button").click(function() {
     $("div#extraControls").removeClass("hidden");
-    $.get("https://api.finna.fi/v1/search?lookfor=&filter[]=~format:%220/Book/%22&lng=fi&limit=20",function(data) { console.log(data)
+    $.get("https://api.finna.fi/v1/search?lookfor=&filter[]=~format:%220/Book/%22&lng=fi&limit=60",function(data) { console.log(data)
       $output.html(
         data.records.map(item => `<tr><td>${item.title}</td><td>${item.buildings[0].translated}</td><td>${item.nonPresenterAuthors[0].name}</td></tr>`)
       );  
