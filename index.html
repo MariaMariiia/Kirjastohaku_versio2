@@ -1,71 +1,76 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>jQuery.getJSON demo</title>
-  <style>
-  img {
-    height: 100px;
-    float: left;
-  }
-  </style>
-  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-  // ES2015 style import
-import axios from 'axios';
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-// Node.js style require
-const axios = require('axios');
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<style>
+tr th {
+  text-align: center;
+  padding: 10px;
+  border:1px solid black;
+  
+}
 
+tr td {
+  padding: 10px;
+  border:1px solid black;
+}
+
+
+</style>
 </head>
 <body>
- 
-<!-- <div id="images"></div> -->
- 
-const axios = require('axios');
-
-// Make a request for a user with a given ID
-axios.get('/user?ID=12345')
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
+<script>
+$(document).ready(function() {
+const $output = $("#output");
+  $("button").click(function() {
+    $.get("https://api.finna.fi/v1/search?lookfor=&filter[]=~format:%220/Book/%22&lng=fi&limit=20",function(data) { console.log(data)
+      $output.html(
+        data.records.map(item => `<tr><td>${item.title}</td><td>${item.buildings[0].translated}</td><td>${item.nonPresenterAuthors[0].name}</td></tr>`)
+      );  
+    });
+    $(this).hide();
   });
+});
+</script>
 
-// Optionally the request above could also be done as
-axios.get('/user', {
-    params: {
-      ID: 12345
-    }
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });  
+<div class="jumbotron text-center">
+  <h1>Search from libray API database!</h1>
+  <p>Search for books, cs's and other stuff.</p>
+</div>
+<div class="container">
+  <div class="example">
+  </div>
+</div>
+</div>
+<form>
+  <div class="formClass">
+    <div>
+      <h2></h2>
+    </div>
+    <button type="button" name="nappula">Hae suomenkielistä kirjallisuutta</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Otsikko</th>
+          <th>Kirjastopiiri</th>
+          <th>Kirjailija</th>
+        </tr>
+      </thead>
+      <tbody  id="output">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>
 
-// Want to use async/await? Add the `async` keyword to your outer function/method.
-async function getUser() {
-  try {
-    const response = await axios.get('/user?ID=12345');
-    console.log(response);
-  } catch (error) {
-    console.error(error);
-  }
-}
- 
-</body>
-</html>
- 
+
 </body>
 </html>
